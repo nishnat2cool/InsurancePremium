@@ -75,6 +75,7 @@
             this.txtAge.ReadOnly = true;
             this.txtAge.Size = new System.Drawing.Size(190, 20);
             this.txtAge.TabIndex = 3;
+            this.txtAge.Text = "17";
             // 
             // lblAge
             // 

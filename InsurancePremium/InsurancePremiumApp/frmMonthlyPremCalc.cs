@@ -195,7 +195,7 @@ namespace InsurancePremiumApp
             txtAge.Text = _age.ToString();
             if (_age < 18)
             {
-                MessageBox.Show("Your Age should be 18 or above");
+                MessageBox.Show("Age should be 18 or above");
             }
             else
             {
@@ -229,12 +229,7 @@ namespace InsurancePremiumApp
             {
                 isStatus = false;
                 lblValidation.Text = "All fields are mandatory";
-            }
-            if (txtAge.Text.Length <= 0 || Convert.ToInt32(txtAge.Text) < 18)
-            {
-                isStatus = false;
-                lblValidation.Text = "All fields are mandatory";
-            }
+            }            
             if (txtDeathSumIns.Text.Length <= 0)
             {
                 isStatus = false;
@@ -245,14 +240,24 @@ namespace InsurancePremiumApp
                 isStatus = false;
                 lblValidation.Text = "All fields are mandatory";
             }
+            if (txtAge.Text.Length <= 0 || Convert.ToInt32(txtAge.Text) < 18)
+            {
+                isStatus = false;
+                lblValidation.Text = "Age should be 18 or above";
+            }
 
             return isStatus;
         }
 
         private void txtDeathSumIns_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!Char.IsDigit(e.KeyChar))
+            //if (!Char.IsDigit(e.KeyChar))
+            //    e.Handled = true;
+
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
                 e.Handled = true;
+            }
         }
 
     }
