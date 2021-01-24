@@ -21,6 +21,9 @@ namespace InsurancePremiumApp
         {
             InitializeComponent();
             cmbOccupation.SelectedIndexChanged += cmbOccupation_SelectedIndexChanged;
+            dtpDOB.ValueChanged += dtpDOB_ValueChanged;
+            txtDeathSumIns.KeyPress += txtDeathSumIns_KeyPress;
+
             FillOccupation();
 
 
@@ -144,7 +147,7 @@ namespace InsurancePremiumApp
 
         private void CalcMonthlyPremium()
         {
-            
+
             double monthlyDeathPremium = 0;
             double deathCoverAmt = Convert.ToDouble(txtDeathSumIns.Text);
             int Age = Convert.ToInt32(txtAge.Text);
@@ -162,9 +165,14 @@ namespace InsurancePremiumApp
             {
                 if (cmbOccupation.SelectedIndex > 0)
                 {
-                    SetOccupationRating(cmbOccupation.Text);
-                    SetRatingFactor();
-                    CalcMonthlyPremium();
+                    if (isValid())
+                    {
+                        SetOccupationRating(cmbOccupation.Text);
+                        SetRatingFactor();
+                        CalcMonthlyPremium();
+                        lblValidation.Text = "";
+                    }
+
 
                 }
             }
@@ -177,6 +185,75 @@ namespace InsurancePremiumApp
 
         }
 
+        private void dtpDOB_ValueChanged(Object sender, EventArgs e)
+        {
+            long _age = 0;
+            DateTime startdate = DateTime.Today;
+            DateTime enddate = dtpDOB.Value;
+            _age = calcage(startdate, enddate);
+
+            txtAge.Text = _age.ToString();
+            if (_age < 18)
+            {
+                MessageBox.Show("Your Age should be 18 or above");
+            }
+            else
+            {
+                if (isValid())
+                {
+                    SetOccupationRating(cmbOccupation.Text);
+                    SetRatingFactor();
+                    CalcMonthlyPremium();
+                    lblValidation.Text = "";
+                }
+
+
+            }
+
+
+        }
+
+        private long calcage(System.DateTime Startdate, System.DateTime EndDate)
+        {
+            long age = 0;
+            System.TimeSpan ts = new TimeSpan(Startdate.Ticks - EndDate.Ticks);
+            age = (long)(ts.Days / 365);
+            return age;
+        }
+
+        private bool isValid()
+        {
+            bool isStatus = true;
+
+            if (txtName.Text.Length <= 0)
+            {
+                isStatus = false;
+                lblValidation.Text = "All fields are mandatory";
+            }
+            if (txtAge.Text.Length <= 0 || Convert.ToInt32(txtAge.Text) < 18)
+            {
+                isStatus = false;
+                lblValidation.Text = "All fields are mandatory";
+            }
+            if (txtDeathSumIns.Text.Length <= 0)
+            {
+                isStatus = false;
+                lblValidation.Text = "All fields are mandatory";
+            }
+            if (cmbOccupation.SelectedIndex <= 0)
+            {
+                isStatus = false;
+                lblValidation.Text = "All fields are mandatory";
+            }
+
+            return isStatus;
+        }
+
+        private void txtDeathSumIns_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar))
+                e.Handled = true;
+        }
 
     }
 }

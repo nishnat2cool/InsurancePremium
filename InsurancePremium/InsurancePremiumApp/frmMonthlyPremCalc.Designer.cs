@@ -40,6 +40,7 @@
             this.lblMonthlyPrem = new System.Windows.Forms.Label();
             this.dtpDOB = new System.Windows.Forms.DateTimePicker();
             this.txtMonthlyPremCalc = new System.Windows.Forms.TextBox();
+            this.lblValidation = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblDOB
@@ -71,6 +72,7 @@
             // 
             this.txtAge.Location = new System.Drawing.Point(185, 130);
             this.txtAge.Name = "txtAge";
+            this.txtAge.ReadOnly = true;
             this.txtAge.Size = new System.Drawing.Size(190, 20);
             this.txtAge.TabIndex = 3;
             // 
@@ -133,7 +135,7 @@
             this.dtpDOB.Name = "dtpDOB";
             this.dtpDOB.Size = new System.Drawing.Size(190, 20);
             this.dtpDOB.TabIndex = 2;
-            this.dtpDOB.Value = new System.DateTime(1986, 7, 31, 0, 0, 0, 0);
+            this.dtpDOB.Value = new System.DateTime(2003, 6, 11, 0, 0, 0, 0);
             // 
             // txtMonthlyPremCalc
             // 
@@ -147,11 +149,20 @@
             this.txtMonthlyPremCalc.TabIndex = 6;
             this.txtMonthlyPremCalc.WordWrap = false;
             // 
+            // lblValidation
+            // 
+            this.lblValidation.AutoSize = true;
+            this.lblValidation.Location = new System.Drawing.Point(440, 292);
+            this.lblValidation.Name = "lblValidation";
+            this.lblValidation.Size = new System.Drawing.Size(0, 13);
+            this.lblValidation.TabIndex = 54;
+            // 
             // frmMonthlyPremCalc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(721, 406);
+            this.Controls.Add(this.lblValidation);
             this.Controls.Add(this.dtpDOB);
             this.Controls.Add(this.txtMonthlyPremCalc);
             this.Controls.Add(this.lblMonthlyPrem);
@@ -186,6 +197,7 @@
         private System.Windows.Forms.Label lblMonthlyPrem;
         private System.Windows.Forms.DateTimePicker dtpDOB;
         private System.Windows.Forms.TextBox txtMonthlyPremCalc;
+        private System.Windows.Forms.Label lblValidation;
     }
 }
 
